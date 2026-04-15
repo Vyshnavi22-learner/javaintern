@@ -1,0 +1,123 @@
+import java.util.*;
+
+class T{
+    String p,n,tr,fr,to,cl,d;
+
+    T(String p,String n,String tr,String fr,String to,String cl,String d){
+        this.p=p;
+        this.n=n;
+        this.tr=tr;
+        this.fr=fr;
+        this.to=to;
+        this.cl=cl;
+        this.d=d;
+    }
+
+    public String toString(){
+        return "PNR:"+p+" Name:"+n+" Train:"+tr+" From:"+fr+" To:"+to+" Class:"+cl+" Date:"+d;
+    }
+}
+
+public class ReservationSystem{
+    static Scanner sc=new Scanner(System.in);
+    static String u="admin";
+    static String pw="1234";
+    static ArrayList<T> l=new ArrayList<>();
+
+    public static void main(String[] a){
+        System.out.println("Login");
+        System.out.print("id:");
+        String id=sc.next();
+        System.out.print("pass:");
+        String p=sc.next();
+
+        if(id.equals(u)&&p.equals(pw)){
+            m();
+        }else{
+            System.out.println("wrong");
+        }
+    }
+
+    static void m(){
+        while(true){
+            System.out.println("1.reserve 2.cancel 3.view 4.exit");
+            int ch=sc.nextInt();
+
+            if(ch==1){
+                r();
+            }else if(ch==2){
+                c();
+            }else if(ch==3){
+                v();
+            }else{
+                break;
+            }
+        }
+    }
+
+    static void r(){
+        System.out.print("name:");
+        String n=sc.next();
+
+        System.out.print("train no:");
+        int x=sc.nextInt();
+
+        String tr;
+        if(x==1101) tr="A";
+        else if(x==1102) tr="B";
+        else tr="L";
+
+        System.out.print("from:");
+        String fr=sc.next();
+
+        System.out.print("to:");
+        String to=sc.next();
+
+        System.out.print("class:");
+        String cl=sc.next();
+
+        System.out.print("date:");
+        String d=sc.next();
+
+        String p="P"+(l.size()+100);
+
+        T ob=new T(p,n,tr,fr,to,cl,d);
+        l.add(ob);
+
+        System.out.println("done "+p);
+    }
+
+    static void c(){
+        System.out.print("pnr:");
+        String p=sc.next().trim().toUpperCase();
+
+        boolean f=false;
+
+        for(int i=0;i<l.size();i++){
+            if(l.get(i).p.equalsIgnoreCase(p)){
+                System.out.println(l.get(i));
+                System.out.print("ok?");
+                String k=sc.next();
+
+                if(k.equalsIgnoreCase("ok")){
+                    l.remove(i);
+                    System.out.println("cancelled");
+                }
+                f=true;
+                break;
+            }
+        }
+
+        if(!f) System.out.println("not found");
+    }
+
+    static void v(){
+        if(l.size()==0){
+            System.out.println("empty");
+        }else{
+            for(T x:l){
+                System.out.println(x);
+            }
+        }
+    }
+}
