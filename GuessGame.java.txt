@@ -1,0 +1,57 @@
+import java.util.*;
+
+public class GuessGame{
+    public static void main(String[] a){
+        Scanner sc=new Scanner(System.in);
+        Random r=new Random();
+
+        int ts=0;
+        int rd=3;
+
+        System.out.println("game start");
+        System.out.println("points system");
+        System.out.println("1 guess = 50");
+        System.out.println("2 guess = 40");
+        System.out.println("3 guess = 30");
+        System.out.println("4 guess = 20");
+        System.out.println("5 guess = 10");
+
+        System.out.println("rounds:"+rd);
+
+        for(int i=1;i<=rd;i++){
+            int t=r.nextInt(100)+1;
+            System.out.println("round "+i);
+            System.out.println("num:"+t);
+
+            int at=0;
+            int mx=5;
+            boolean w=false;
+
+            while(at<mx){
+                System.out.print("guess:");
+                int g=sc.nextInt();
+                at++;
+
+                if(g==t){
+                    int pt=(mx-at+1)*10;
+                    ts+=pt;
+                    System.out.println("correct");
+                    System.out.println("points:("+mx+"-"+at+"+1)*10="+pt);
+                    w=true;
+                    break;
+                }else if(g<t){
+                    System.out.println("high");
+                }else{
+                    System.out.println("low");
+                }
+            }
+
+            if(!w){
+                System.out.println("no chance num:"+t);
+            }
+        }
+
+        System.out.println("end");
+        System.out.println("score:"+ts);
+    }
+}
